@@ -72,10 +72,23 @@ namespace ArgusIPMI
             {
                 using var stream = new FileStream(configFilePath, FileMode.Open, FileAccess.Read);
                 var serializer = new XmlSerializer(typeof(Settings));
-                return (serializer.Deserialize(stream) as Settings) ?? new Settings();
+                var settings = (serializer.Deserialize(stream) as Settings) ?? new Settings();
+
+                // Check if any settings are default
+                if (settings.IpAddress == "0.0.0.0" || settings.Username == "change-me" || settings.Password == "change-me")
+                {
+                    var message = "Default settings detected. Please update the config.xml with non-default values.";
+                    Logger.Instance.Log(message);
+                    Console.WriteLine(message);
+                    Environment.Exit(1); // Exit the application
+                }
+
+                return settings;
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Instance.Log("Error loading settings: " + ex.Message);
+                Console.WriteLine("Error loading settings: " + ex.Message);
                 return new Settings();
             }
         }

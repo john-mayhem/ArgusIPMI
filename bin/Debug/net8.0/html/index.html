@@ -3,57 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPMI Multi Fan Controller</title>
+    <title>Argus IPMI Controller</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Add your CSS file reference here -->
-    <script src="script.js" defer></script>
-    <!-- Add your JavaScript file reference here -->
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>IPMI Multi Fan Controller</h1>
-        </div>
-        <div class="connection-data">
+            <h1>Argus IPMI Controller</h1>
+            <button id="toggleConsole" class="toggle-console-btn">Toggle Console</button>
+          </div>
+        <div class="connection-data section">
             <input type="text" id="ipAddress" placeholder="IP Address">
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
             <button id="save">Save</button>
             <button id="clear">Clear</button>
-            <button id="refresh">Refresh</button>
-            <button id="start">Start</button>
-            <button id="stop">Stop</button>
         </div>
-        <div class="controls">
+        <div class="controls section">
             <button class="manual">10%</button>
             <button class="manual">20%</button>
-            <!-- Repeat for other percentages -->
-            <input type="range" id="customSpeed" min="0" max="100" value="50">
-            <button id="setSpeed">Set</button>
+            <button class="manual">30%</button>
+            <button class="manual">40%</button>
+            <button class="manual">50%</button>
+            <button class="manual">60%</button>
+            <button class="manual">70%</button>
+            <button class="manual">80%</button>
+            <button class="manual">90%</button>
+            <button class="manual">100%</button>
+            <input type="range" id="customSpeed" min="0" max="100" value="0">
+            <button class="setSpeed">SET</button>
         </div>
-        <div class="fan-info">
-            <!-- Repeat this block for each fan -->
+        <div class="fan-info section">
             <div class="fan">
                 <div>Fan 1</div>
-                <div id="fan1RPM">RPM: 99999</div>
-                <div id="fan1PCT">PCT: 100%</div>
+                <div id="fan1RPM">RPM: 0</div>
+                <div id="fan1PCT">PCT: 0%</div>
             </div>
-            <!-- ... -->
+            <div class="fan">
+                <div>Fan 2</div>
+                <div id="fan2RPM">RPM: 0</div>
+                <div id="fan2PCT">PCT: 0%</div>
+            </div>
+            <div class="fan">
+                <div>Fan 3</div>
+                <div id="fan3RPM">RPM: 0</div>
+                <div id="fan3PCT">PCT: 0%</div>
+            </div>
+            <div class="fan">
+                <div>Fan 4</div>
+                <div id="fan4RPM">RPM: 0</div>
+                <div id="fan4PCT">PCT: 0%</div>
+            </div>
+            <div class="fan">
+                <div>Fan 5</div>
+                <div id="fan5RPM">RPM: 0</div>
+                <div id="fan5PCT">PCT: 0%</div>
+            </div>
+            <div class="fan">
+                <div>Fan 6</div>
+                <div id="fan6RPM">RPM: 0</div>
+                <div id="fan6PCT">PCT: 0%</div>
+            </div>
         </div>
-        <div class="temperature-info">
-            <div> 
-                <div>CPU 1 Temperature</div>
-                <div id="cpu1Temp">100</div>
-            </div>
-            <div> 
-                <div>CPU 2 Temperature</div>
-                <div id="cpu2Temp">100</div>
+        <div class="info-section section">
+            <div class="temperature-info">
+                <div class="cpu-temp">
+                    <div>CPU 1 Temperature</div>
+                    <div id="cpu1Temp">0 °C</div>
+                </div>
+                <div class="cpu-temp">
+                    <div>CPU 2 Temperature</div>
+                    <div id="cpu2Temp">0 °C</div>
+                </div>
+                <div class="power-consumption">
+                    <div>Power Consumption</div>
+                    <div id="powerConsumption">0 Watts</div>
+                </div>
             </div>
         </div>
-        <div class="power-info">
-            <div>Power Consumption</div>
-            <div id="powerConsumption">100</div>
+        <div class="console-output section">
+            <pre id="consoleLog">Console output will appear here...</pre>
         </div>
     </div>
 </body>
+<script src="script.js"></script>
 </html>

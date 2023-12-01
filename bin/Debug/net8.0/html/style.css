@@ -1,110 +1,315 @@
 /* Basic reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  body {
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: auto;
-    overflow: hidden;
-    padding: 0 20px;
-  }
-  
-  .header {
-    background: #003366;
-    color: #ffffff;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .connection-data,
-  .controls,
-  .fan-info,
-  .temperature-info,
-  .power-info {
-    background: #ffffff;
-    margin-bottom: 20px;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.header {
+  background: #ffffff;
+  color: #003366;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section {
+  background: #ffffff;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.input-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-field input[type='text'],
+.input-field input[type='password'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 10px 15px;
+  background: #0055cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #003399;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.controls button.manual {
+  background: #e6e6e6;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.controls button.manual.active,
+.controls button.manual:hover {
+  background: #007bff;
+  color: white;
+}
+
+.controls input[type='range'] {
+  flex-grow: 1;
+}
+
+.fan-info,
+.temperature-info,
+.power-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fan-info .fan,
+.temperature-info > div,
+.power-info > div {
+  text-align: center;
+  flex: 1;
+}
+
+/* ... existing styles ... */
+
+.connection-data,
+.controls,
+.fan-info,
+.temperature-info,
+.power-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; /* Align items vertically in the center */
+  gap: 15px; /* Add more space between items */
+  margin-bottom: 20px; /* Add space below the sections */
+}
+
+.connection-data input[type='text'],
+.connection-data input[type='password'],
+.controls button.manual,
+.controls button.setSpeed,
+.controls input[type='range'],
+.connection-data button {
+  flex: 1; /* Allow each item to grow */
+  min-width: 70px; /* Minimum width so that they don't get too small */
+  padding: 10px;
+  margin: 0px; /* Add margin for spacing */
+}
+
+
+.controls input[type='range'] {
+  flex: 1; /* Allow each item to grow */
+  min-width: 88%; /* Minimum width so that they don't get too small */
+  padding: 10px;
+  margin: 0px; /* Add margin for spacing */
+}
+
+
+/* Style updates for buttons */
+.connection-data button,
+.controls button.manual,
+.controls button.setSpeed {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Add transform to transition for a click effect */
+}
+
+.connection-data button:hover,
+.controls button.manual:hover,
+.controls button.setSpeed:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Slight move up on hover */
+}
+
+.controls input[type='range'] {
+  margin: 0 10px; /* Specific margin for range input */
+  max-width: 300px; /* Limit max width of range input */
+}
+
+.info-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.info-section .temperature-info {
+  display: flex;
+  flex-grow: 2; /* CPU temperature blocks take more space */
+  gap: 20px;
+}
+
+.info-section .cpu-temp,
+.info-section .power-consumption {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.info-section .cpu-temp > div:first-child,
+.info-section .power-consumption > div:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .connection-data input[type='text'],
-  .connection-data input[type='password'] {
-    width: calc(33.333% - 10px);
-    margin-right: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
+  .connection-data input[type='password'],
+  .controls button.manual,
+  .controls button.setSpeed,
+  .controls input[type='range'],
   .connection-data button {
-    padding: 10px 15px;
-    background: #0055cc;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    flex: none;
+    width: auto;
   }
-  
-  .connection-data button:hover {
-    opacity: 0.9;
+
+  .section {
+    flex-direction: column;
   }
-  
-  .controls button.manual {
-    background: #e6e6e6;
-    padding: 10px;
-    border: none;
-    margin-right: 5px;
-    cursor: pointer;
+}
+
+/* Console window output */
+.console-output {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+  height: 180px;
+  overflow-y: auto;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#consoleLog {
+  white-space: pre-wrap;
+}
+
+
+/* Save/Clear button color changes */
+#save {
+  background-color: #4cd964; /* Green */
+}
+
+#clear {
+  background-color: #ff3b30; /* Red */
+}
+
+#save:hover {
+  background-color: #4cc564; /* Darker Green */
+}
+
+#clear:hover {
+  background-color: #e13b30; /* Darker Red */
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.fan-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.fan-info .fan {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.fan-info .fan > div:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.temperature-info,
+.power-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.temperature-info > div,
+.power-info > div {
+  flex: 1;
+  text-align: center;
+}
+
+/* Add to your existing styles */
+
+.header {
+  position: relative; /* Added for absolute positioning of the button */
+  /* ... other styles ... */
+}
+
+.toggle-console-btn {
+  position: absolute;
+  right: 20px; /* Align to the right, 20px from the edge */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  padding: 10px 15px;
+  background: #A2AAAD;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-console-btn:hover {
+  background-color: #898f91;
+}
+
+@media (max-width: 768px) {
+  .toggle-console-btn {
+    position: static;
+    transform: none;
+    margin-top: 10px; /* Provide some space from the title */
   }
-  
-  .controls button.manual.active {
-    background: #007bff;
-    color: white;
-  }
-  
-  .controls input[type='range'] {
-    width: 100%;
-  }
-  
-  .fan-info,
-  .temperature-info,
-  .power-info {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .fan-info .fan,
-  .temperature-info > div,
-  .power-info > div {
-    text-align: center;
-    flex: 1;
-  }
-  
-  /* Add responsive styles as needed */
-  @media (max-width: 768px) {
-    .connection-data input[type='text'],
-    .connection-data input[type='password'] {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  
-    .connection-data button,
-    .controls button.manual {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  }
-  
+}

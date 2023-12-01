@@ -26,3 +26,18 @@ D:\Dev\ArgusIPMI\obj\Debug\net8.0\refint\ArgusIPMI.dll
 D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.pdb
 D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.genruntimeconfig.cache
 D:\Dev\ArgusIPMI\obj\Debug\net8.0\ref\ArgusIPMI.dll
+C:\Users\Maxim Roman\Desktop\Personal\Prod\bin\Debug\net8.0\ArgusIPMI.exe
+C:\Users\Maxim Roman\Desktop\Personal\Prod\bin\Debug\net8.0\ArgusIPMI.deps.json
+C:\Users\Maxim Roman\Desktop\Personal\Prod\bin\Debug\net8.0\ArgusIPMI.runtimeconfig.json
+C:\Users\Maxim Roman\Desktop\Personal\Prod\bin\Debug\net8.0\ArgusIPMI.dll
+C:\Users\Maxim Roman\Desktop\Personal\Prod\bin\Debug\net8.0\ArgusIPMI.pdb
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.AssemblyInfoInputs.cache
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.AssemblyInfo.cs
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.csproj.CoreCompileInputs.cache
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.sourcelink.json
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.dll
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\refint\ArgusIPMI.dll
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.pdb
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.genruntimeconfig.cache
+C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ref\ArgusIPMI.dll
