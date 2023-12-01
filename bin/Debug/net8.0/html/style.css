@@ -1,0 +1,110 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+  }
+  
+  .header {
+    background: #003366;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .connection-data,
+  .controls,
+  .fan-info,
+  .temperature-info,
+  .power-info {
+    background: #ffffff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .connection-data input[type='text'],
+  .connection-data input[type='password'] {
+    width: calc(33.333% - 10px);
+    margin-right: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .connection-data button {
+    padding: 10px 15px;
+    background: #0055cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .connection-data button:hover {
+    opacity: 0.9;
+  }
+  
+  .controls button.manual {
+    background: #e6e6e6;
+    padding: 10px;
+    border: none;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .controls button.manual.active {
+    background: #007bff;
+    color: white;
+  }
+  
+  .controls input[type='range'] {
+    width: 100%;
+  }
+  
+  .fan-info,
+  .temperature-info,
+  .power-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .fan-info .fan,
+  .temperature-info > div,
+  .power-info > div {
+    text-align: center;
+    flex: 1;
+  }
+  
+  /* Add responsive styles as needed */
+  @media (max-width: 768px) {
+    .connection-data input[type='text'],
+    .connection-data input[type='password'] {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .connection-data button,
+    .controls button.manual {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  

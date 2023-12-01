@@ -1,0 +1,28 @@
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.exe
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.deps.json
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.runtimeconfig.json
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.dll
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.pdb
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.AssemblyInfoInputs.cache
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.AssemblyInfo.cs
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.csproj.CoreCompileInputs.cache
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.dll
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\refint\ArgusIPMI.dll
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.pdb
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.genruntimeconfig.cache
+C:\Users\Maxim Roman\Desktop\Personal\Prod\ArgusIPMI\obj\Debug\net8.0\ref\ArgusIPMI.dll
+D:\Dev\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.exe
+D:\Dev\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.deps.json
+D:\Dev\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.runtimeconfig.json
+D:\Dev\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.dll
+D:\Dev\ArgusIPMI\bin\Debug\net8.0\ArgusIPMI.pdb
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.AssemblyInfoInputs.cache
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.AssemblyInfo.cs
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.csproj.CoreCompileInputs.cache
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.dll
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\refint\ArgusIPMI.dll
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.pdb
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.genruntimeconfig.cache
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ref\ArgusIPMI.dll
