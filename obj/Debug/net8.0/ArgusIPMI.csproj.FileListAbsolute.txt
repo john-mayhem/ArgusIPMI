@@ -41,3 +41,4 @@ C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\refint\ArgusIPMI.dll
 C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.pdb
 C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ArgusIPMI.genruntimeconfig.cache
 C:\Users\Maxim Roman\Desktop\Personal\Prod\obj\Debug\net8.0\ref\ArgusIPMI.dll
+D:\Dev\ArgusIPMI\obj\Debug\net8.0\ArgusIPMI.sourcelink.json

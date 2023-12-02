@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArgusIPMI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ea491d5f72224349e01667b13aa82ae8208781b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee3c1f16c894d466db44d1ae57e66f8588d104c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArgusIPMI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArgusIPMI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

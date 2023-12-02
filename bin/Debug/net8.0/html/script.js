@@ -1,13 +1,78 @@
-window.onload = function() {
-    const toggleButton = document.getElementById('toggleConsole');
+// Helper functions
+function toggleDisplay(element, isShow) {
+    element.style.display = isShow ? 'block' : 'none';
+}
+
+function createElementWithText(xmlDoc, tagName, textContent) {
+    const element = xmlDoc.createElement(tagName);
+    element.textContent = textContent;
+    return element;
+}
+
+// Main functions
+function setupToggleButtons() {
+    const toggleConsoleButton = document.getElementById('toggleConsole');
     const consoleOutput = document.querySelector('.console-output');
-  
-    toggleButton.addEventListener('click', function() {
-      const isHidden = consoleOutput.style.display === 'none';
-      consoleOutput.style.display = isHidden ? 'block' : 'none';
-      toggleButton.textContent = isHidden ? 'Hide Console' : 'Show Console';
+    toggleConsoleButton.addEventListener('click', () => {
+        const isHidden = consoleOutput.style.display === 'none';
+        toggleDisplay(consoleOutput, isHidden);
+        toggleConsoleButton.textContent = isHidden ? 'Hide Console' : 'Show Console';
     });
-  };
+
+    const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+    toggleDarkModeButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const mode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', mode);
+        toggleDarkModeButton.textContent = mode ? 'Light Mode' : 'Dark Mode';
+    });
+}
+
+function setupInputValidation() {
+    const saveButton = document.getElementById('save');
+    saveButton.addEventListener('click', () => {
+        const ipAddressField = document.getElementById('ipAddress');
+        const usernameField = document.getElementById('username');
+        const passwordField = document.getElementById('password');
+
+        if (!ipAddressField.checkValidity()) {
+            displayError('Please enter a valid IP address.');
+        } else if (!usernameField.checkValidity()) {
+            displayError('Username must be up to 32 characters long and can include letters, numbers, and special characters.');
+        } else if (!passwordField.checkValidity()) {
+            displayError('Password must be up to 32 characters long and can include letters, numbers, and special characters.');
+        } else {
+            saveConfig();
+        }
+    });
+}
+
+function setupClearButton() {
+    const clearButton = document.getElementById('clear');
+    clearButton.addEventListener('click', () => {
+        document.getElementById('ipAddress').value = '';
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+    });
+}
+
+function loadInitialConfig() {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('toggleDarkMode').textContent = 'Light Mode';
+    }
+
+    loadConfig();
+}
+
+// Call setup functions on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    loadInitialConfig();
+    setupToggleButtons();
+    setupInputValidation();
+    setupClearButton();
+    setInterval(updateSensorData, 1000);
+});
 
 function rpmToPercentage(rpm) {
     // Mapping RPM to percentage based on the data you provided
@@ -58,10 +123,111 @@ function updateSensorData() {
         .catch(error => console.error('Error fetching sensor data:', error));
     }
 
-// Call updateSensorData at a set interval
 setInterval(updateSensorData, 1000); // Update every second
 
+function loadConfig() {
+    fetch('/api/config')
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(data, "text/xml");
+            
+            document.getElementById('ipAddress').value = xmlDoc.getElementsByTagName('IpAddress')[0].childNodes[0].nodeValue;
+            document.getElementById('username').value = xmlDoc.getElementsByTagName('Username')[0].childNodes[0].nodeValue;
+            document.getElementById('password').value = xmlDoc.getElementsByTagName('Password')[0].childNodes[0].nodeValue;
+        })
+        .catch(error => displayError('Failed to load settings from the server.'));
+}
 
+document.getElementById('save').addEventListener('click', function() {
+    var ipAddressField = document.getElementById('ipAddress');
+    var usernameField = document.getElementById('username');
+    var passwordField = document.getElementById('password');
+  
+    if (!ipAddressField.checkValidity()) {
+      displayError('Please enter a valid IP address.');
+    } else if (!usernameField.checkValidity()) {
+      displayError('Username must be up to 32 characters long and can include letters, numbers, and special characters.');
+    } else if (!passwordField.checkValidity()) {
+      displayError('Password must be up to 32 characters long and can include letters, numbers, and special characters.');
+    } else {
+      // Proceed with saving the configuration
+      saveConfig();
+    }
+  });
 
   
+// Save settings to the server
+function saveConfig() {
+    const ip = document.getElementById('ipAddress').value;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (!ip || !username || !password) {
+        displayError('All fields are required.');
+        return;
+    }
+
+    const settings = new XMLSerializer().serializeToString(createSettingsXml(ip, username, password));
+    
+    fetch('/api/config', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/xml',
+        },
+        body: settings
+    })
+    .then(response => {
+        if (response.ok) {
+            displayError('Settings saved successfully.', false);
+        } else {
+            throw new Error('Server responded with an error.');
+        }
+    })
+    .catch(error => displayError('Failed to save settings to the server.'));
+}
+
+
+// Helper function to create XML from settings
+function createSettingsXml(ip, username, password) {
+    const xmlDoc = document.implementation.createDocument(null, "Settings");
+    xmlDoc.documentElement.appendChild(createElementWithText(xmlDoc, 'IpAddress', ip));
+    xmlDoc.documentElement.appendChild(createElementWithText(xmlDoc, 'Username', username));
+    xmlDoc.documentElement.appendChild(createElementWithText(xmlDoc, 'Password', password));
+    return xmlDoc;
+}
+
+
+function displayError(message, isError = true, persist = false) {
+    const errorContainer = document.getElementById('error-container');
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = message;
+
+    // Remove the inline display style so that our class-based styles take effect
+    errorContainer.style.display = '';
+
+    // Apply different classes based on error or success
+    if (isError) {
+        errorContainer.classList.remove('success-container');
+        errorContainer.classList.add('show-error', 'error-container');
+    } else {
+        errorContainer.classList.remove('error-container');
+        errorContainer.classList.add('show-error', 'success-container');
+    }
+
+    // Hide the error container after a delay if not persistent
+    if (!persist) {
+        setTimeout(() => {
+            errorContainer.classList.remove('show-error');
+            // Reapply the inline display:none; style after hiding the error
+            errorContainer.style.display = 'none';
+        }, 3000);
+    }
+
+    // Allow the error container to be clicked to hide immediately
+    errorContainer.addEventListener('click', () => {
+    errorContainer.classList.remove('show-error');
+  });
   
+}
+

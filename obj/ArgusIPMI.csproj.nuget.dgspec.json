@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Maxim Roman\\Desktop\\Personal\\Prod\\ArgusIPMI.csproj": {}
+    "D:\\Dev\\ArgusIPMI\\ArgusIPMI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Maxim Roman\\Desktop\\Personal\\Prod\\ArgusIPMI.csproj": {
+    "D:\\Dev\\ArgusIPMI\\ArgusIPMI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Maxim Roman\\Desktop\\Personal\\Prod\\ArgusIPMI.csproj",
+        "projectUniqueName": "D:\\Dev\\ArgusIPMI\\ArgusIPMI.csproj",
         "projectName": "ArgusIPMI",
-        "projectPath": "C:\\Users\\Maxim Roman\\Desktop\\Personal\\Prod\\ArgusIPMI.csproj",
-        "packagesPath": "C:\\Users\\Maxim Roman\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Maxim Roman\\Desktop\\Personal\\Prod\\obj\\",
+        "projectPath": "D:\\Dev\\ArgusIPMI\\ArgusIPMI.csproj",
+        "packagesPath": "C:\\Users\\maksi\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev\\ArgusIPMI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Maxim Roman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maksi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

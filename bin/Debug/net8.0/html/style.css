@@ -116,7 +116,6 @@ body {
   flex-wrap: wrap;
   align-items: center; /* Align items vertically in the center */
   gap: 15px; /* Add more space between items */
-  margin-bottom: 20px; /* Add space below the sections */
 }
 
 .connection-data input[type='text'],
@@ -219,6 +218,7 @@ body {
   overflow-y: auto;
   border-radius: 5px;
   padding: 10px;
+  display: none;
 }
 
 #consoleLog {
@@ -311,5 +311,174 @@ body {
     position: static;
     transform: none;
     margin-top: 10px; /* Provide some space from the title */
+  }
+  .toggle-darkmode-btn {
+    position: static;
+    transform: none;
+    margin-top: -75px; /* Provide some space from the title */
+  }
+}
+
+.error-container,
+.success-container {
+  position: fixed;
+  top: 20px;
+  right: 20px; /* Positioned to the top-right */
+  background-color: #f8d7da; /* Default to error color */
+  color: #721c24;
+  padding: 15px 30px; /* More padding for a pill-like shape */
+  border-radius: 50px; /* Fully rounded corners for a pill shape */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  z-index: 1000; /* Ensure it's above other content */
+  font-size: 1em;
+  transform: translateX(100%); /* Start hidden to the right */
+  opacity: 0; /* Start transparent */
+  pointer-events: none; /* Allows click events to pass through when not visible */
+}
+
+/* Shown state for the notification */
+.show-error {
+  transform: translateX(0); /* Bring into view */
+  opacity: 1; /* Fully opaque */
+  pointer-events: auto; /* Reactivates pointer events when visible */
+}
+
+/* Specific styles for success messages */
+.success-container {
+  background-color: #d4edda; /* Softer green for success */
+  color: #155724;
+  border: none; /* No border for success */
+}
+
+/* Hover effect for dismissible notifications */
+.error-container:hover,
+.success-container:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+
+/* Add this to your existing styles */
+
+.toggle-darkmode-btn {
+  position: absolute;
+  left: 20px; /* Align to the left, 20px from the edge */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  padding: 10px 15px;
+  background: #A2AAAD;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-darkmode-btn:hover {
+  background-color: #898f91;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212; /* Dark background for the body */
+  color: #ffffff; /* Light text for better readability */
+}
+
+.dark-mode .header {
+  background: #333; /* Darker background for the header */
+  color: #ffffff;
+}
+
+.dark-mode .fan-info .fan,
+.dark-mode .info-section .cpu-temp, 
+.dark-mode .info-section .power-consumption {
+  background: #2a2a2a; /* Darker background for the header */
+  color: #ddd;
+  border: 1px solid #000000;
+}
+
+.dark-mode .section {
+  background: #252525; /* Dark background for each section */
+  color: #ffffff; /* Light text color */
+}
+
+.dark-mode .button {
+  background: #555; /* Dark background for buttons */
+  color: #ddd; /* Lighter text for buttons */
+}
+
+.dark-mode .button:hover {
+  background: #777; /* Lighter background for buttons on hover */
+}
+
+.dark-mode .inp {
+  background: #333; /* Dark background for input fields */
+  color: #ddd; /* Light text for input fields */
+  border-color: #444; /* Dark border for input fields */
+}
+
+.dark-mode .console-output {
+  background-color: #000; /* Black background for console output */
+  color: #00ff00; /* Green text for the console, like a typical terminal */
+}
+
+/* You might need to adjust the colors for the fan control buttons */
+.dark-mode .controls button.manual {
+  background: #555; /* Dark background for manual control buttons */
+  color: #ddd;
+}
+
+.dark-mode .controls button.manual.active,
+.dark-mode .controls button.manual:hover {
+  background: #777; /* Lighter background for active/hover state */
+}
+
+/* Adjust the color of the toggle buttons */
+.dark-mode .toggle-console-btn,
+.dark-mode .toggle-darkmode-btn {
+  background: #555;
+  color: #ddd;
+}
+
+.dark-mode .toggle-console-btn:hover,
+.dark-mode .toggle-darkmode-btn:hover {
+  background-color: #777;
+}
+
+/* If there are any tables or lists, you'll want to adjust them as well */
+.dark-mode table {
+  border-color: #444;
+}
+
+.dark-mode table th,
+.dark-mode table td {
+  border-color: #555;
+}
+
+.dark-mode ul,
+.dark-mode ol {
+  color: #ddd;
+}
+
+/* Any other elements that need dark mode styling */
+
+
+.header-logo {
+  height: 50px; /* Or any size you prefer */
+  position: absolute;
+  left: 32%; /* Center the logo */
+  transform: translateX(-50%); /* Adjust horizontal centering */
+  top: 20px; /* Adjust vertical positioning */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .header-logo {
+      position: static;
+      transform: none;
+      display: block;
+      margin: 0 auto;
+      height: 40px; /* Smaller size for small screens */
   }
 }

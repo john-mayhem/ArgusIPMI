@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="error-container" class="error-container" style="display:none;">
+        <p id="error-message"></p>
+    </div>
     <div class="container">
         <div class="header">
+            <button id="toggleDarkMode" class="toggle-darkmode-btn">Dark Mode</button>
+            <img src="logo.png" alt="Argus IPMI Controller Logo" class="header-logo">
             <h1>Argus IPMI Controller</h1>
             <button id="toggleConsole" class="toggle-console-btn">Toggle Console</button>
-          </div>
+        </div>
         <div class="connection-data section">
-            <input type="text" id="ipAddress" placeholder="IP Address">
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
+            <input type="text" class="inp" id="ipAddress" placeholder="IP Address" autocomplete="off">
+            <input type="text" class="inp" id="username" placeholder="Username" autocomplete="off">
+            <input type="password" class="inp" id="password" placeholder="Password">
             <button id="save">Save</button>
             <button id="clear">Clear</button>
         </div>
