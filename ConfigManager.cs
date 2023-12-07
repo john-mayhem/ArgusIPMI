@@ -50,7 +50,7 @@ namespace ArgusIPMI
                 }
 
                 return settings;
-            }
+            } 
             catch (Exception ex)
             {
                 Logger.Instance.Log("Error loading settings: " + ex.Message);

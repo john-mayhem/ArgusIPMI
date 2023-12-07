@@ -12,6 +12,13 @@
     <Content Include="gui_random_icon_157051.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="ipmitool\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>

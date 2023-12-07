@@ -9,7 +9,7 @@ namespace ArgusIPMI
 {
     public class Logger
     {
-        private static readonly Lazy<Logger> instance = new Lazy<Logger>(() => new Logger());
+        private static readonly Lazy<Logger> instance = new(() => new Logger());
         private readonly string logFilePath;
 
         private Logger()

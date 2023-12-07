@@ -18,22 +18,25 @@ namespace ArgusIPMI
 {
     public class WebServerHost
     {
-        private static System.Timers.Timer? sensorDataTimer; // Fully qualify the Timer here
+        private static System.Timers.Timer? sensorDataTimer; // Timer is nullable
 
-        private static async void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private static async void OnTimedEvent(object? source, ElapsedEventArgs e) // Make source nullable
         {
-            sensorDataTimer.Enabled = false;
-            try
+            if (sensorDataTimer != null) // Null check for sensorDataTimer
             {
-                await ProcessSensorData();
-            }
-            finally
-            {
-                sensorDataTimer.Enabled = true;
+                sensorDataTimer.Enabled = false;
+                try
+                {
+                    await ProcessSensorData();
+                }
+                finally
+                {
+                    sensorDataTimer.Enabled = true;
+                }
             }
         }
 
-        public static async Task StartWebServer(IPMIToolWrapper ipmiWrapper)
+        public static async Task StartWebServer() // Removed unused parameter 'ipmiWrapper'
         {
             // Set up the timer for 1000 milliseconds (1 second)
             sensorDataTimer = new System.Timers.Timer(1000)
@@ -76,70 +79,6 @@ namespace ArgusIPMI
                             {
                                 await context.Response.WriteAsync("Hello, World!");
                             });
-
-                            // Endpoint to get the current configuration settings
-                            endpoints.MapGet("/api/config", async context =>
-                            {
-                                var configManager = new ConfigManager();
-                                var settings = configManager.LoadSettings();
-
-                                // Serialize settings to XML
-                                var serializer = new XmlSerializer(typeof(Settings));
-                                using var stringWriter = new StringWriter();
-                                serializer.Serialize(stringWriter, settings);
-
-                                context.Response.ContentType = "application/xml";
-                                await context.Response.WriteAsync(stringWriter.ToString());
-                            });
-
-                            // Endpoint to save the configuration settings
-                            endpoints.MapPost("/api/config", async context =>
-                            {
-                                var configManager = new ConfigManager();
-
-                                try
-                                {
-                                    // Deserialize settings from request body
-                                    var serializer = new XmlSerializer(typeof(Settings));
-                                    using var reader = new StreamReader(context.Request.Body);
-                                    var requestBody = await reader.ReadToEndAsync();
-                                    Console.WriteLine(requestBody); // Log the request body for debugging
-
-                                    using var stringReader = new StringReader(requestBody);
-                                    var settings = (Settings)serializer.Deserialize(stringReader);
-
-                                    // Save the settings
-                                    configManager.SaveSettings(settings);
-
-                                    context.Response.StatusCode = StatusCodes.Status200OK;
-                                    await context.Response.WriteAsync("Settings updated successfully.");
-                                }
-                                catch (Exception ex)
-                                {
-                                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                                    await context.Response.WriteAsync($"An error occurred while updating settings: {ex.Message}");
-                                }
-                            });
-
-                            endpoints.MapPost("/api/retry-config", async context =>
-                            {
-                                try
-                                {
-                                    var configManager = new ConfigManager();
-                                    var settings = configManager.LoadSettings();
-
-                                    // Attempt to connect to IPMI with the new settings
-                                    var sensorData = await ipmiWrapper.GetSensorListAsync(settings.IpAddress, settings.Username, settings.Password);
-
-                                    // Handle errors as above, and return appropriate messages to the client
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Error handling
-                                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                                    await context.Response.WriteAsync("Failed to retry with new settings.");
-                                }
-                            });
                         });
                     }).UseUrls("http://*:5000");
                 }).Build();
@@ -169,14 +108,14 @@ namespace ArgusIPMI
                                      .ToArray();
 
                 var cpuTemps = Regex.Matches(fileContent, @"Temp\s+\|\s+(\d+\.\d+)\s+\|")
-                                    .Cast<Match>()
+                                        .Cast<Match>()
                                     .Select(m => m.Groups[1].Value)
                                     .Select(value => float.Parse(value, System.Globalization.CultureInfo.InvariantCulture))
                                     .Select(number => ((int)Math.Round(number)).ToString())
                                     .ToArray();
 
                 var powerConsumption = Regex.Match(fileContent, @"Pwr Consumption\s+\|\s+(\d+\.\d+)\s+\|")
-                                            .Groups[1].Value;
+                                                .Groups[1].Value;
                 powerConsumption = ((int)Math.Round(float.Parse(powerConsumption, System.Globalization.CultureInfo.InvariantCulture))).ToString();
 
                 // Create an XML representation of the data
@@ -203,6 +142,9 @@ namespace ArgusIPMI
                     new XElement("PowerConsumption", "0")
                 );
                 await File.WriteAllTextAsync(xmlFilePath, emptyData.ToString());
+                Logger.Instance.Log("Sleeping for 10 seconds");
+                Console.WriteLine("Sleeping for 10 seconds" );
+                await Task.Delay(10000);
             }
         }
     }
