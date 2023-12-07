@@ -9,6 +9,13 @@ function createElementWithText(xmlDoc, tagName, textContent) {
     return element;
 }
 
+function loadInitialConfig() {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('toggleDarkMode').textContent = 'Light Mode';
+    }
+}
+
 // Main functions
 function setupToggleButtons() {
     const toggleConsoleButton = document.getElementById('toggleConsole');
@@ -31,6 +38,7 @@ function setupToggleButtons() {
 // Call setup functions on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     setupToggleButtons();
+    loadInitialConfig();
     setInterval(updateSensorData, 1000);
 });
 
@@ -118,3 +126,66 @@ function displayError(message, isError = true, persist = false) {
   
 }
 
+
+document.getElementById('automatic').addEventListener('click', function() {
+    fetch('/setAutomatic', { method: 'POST' })
+        .then(response => console.log('Automatic mode set'))
+        .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('manual').addEventListener('click', function() {
+    fetch('/setManual', { method: 'POST' })
+        .then(response => console.log('Manual mode set'))
+        .catch(error => console.error('Error:', error));
+});
+
+// Disable fan speed buttons and slider initially
+document.querySelectorAll('.manual, #customSpeed, .setSpeed').forEach(el => el.disabled = true);
+
+// Function to toggle the fan speed buttons and slider
+function toggleFanControls(enable) {
+    document.querySelectorAll('.manual, #customSpeed, .setSpeed').forEach(el => el.disabled = !enable);
+}
+
+// Enable fan speed buttons and slider when "Manual" button is clicked
+document.getElementById('manual').addEventListener('click', function() {
+    toggleFanControls(true);
+});
+
+// Helper function to map percentages to hex values
+function percentageToHex(percentage) {
+    const hexValues = {
+        '0': '00',
+        '10': '0A',
+        '20': '14',
+        '30': '1E',
+        '40': '28',
+        '50': '32',
+        '60': '3C',
+        '70': '46',
+        '80': '50',
+        '90': '5A',
+        '100': '64'
+    };
+    return hexValues[percentage];
+}
+
+// Event listeners for fan speed buttons
+document.querySelectorAll('.manual').forEach(button => {
+    button.addEventListener('click', function() {
+        const percentage = this.textContent.replace('%', '');
+        const hexValue = percentageToHex(percentage);
+        fetch(`/setFanSpeed?speed=${hexValue}`, { method: 'POST' })
+            .then(response => console.log(`${percentage}% speed set`))
+            .catch(error => console.error('Error:', error));
+    });
+});
+
+// Event listener for "SET" button
+document.querySelector('.setSpeed').addEventListener('click', function() {
+    const sliderValue = document.getElementById('customSpeed').value;
+    const hexValue = percentageToHex(sliderValue);
+    fetch(`/setFanSpeed?speed=${hexValue}`, { method: 'POST' })
+        .then(response => console.log(`Speed set to ${sliderValue}%`))
+        .catch(error => console.error('Error:', error));
+});

@@ -40,6 +40,8 @@ namespace ArgusIPMI
 
             ipmiWrapper = new IPMIToolWrapper(ipmiToolPath);
 
+            var executor = new Executor(ipmiWrapper, currentSettings);
+
             var connectionSuccessful = await IPMIChecker.TryIPMIConnection(ipmiWrapper, currentSettings);
             if (!connectionSuccessful)
             {
@@ -54,7 +56,7 @@ namespace ArgusIPMI
                 return;
             }
 
-            var webServerTask = WebServerHost.StartWebServer(); 
+            var webServerTask = WebServerHost.StartWebServer(executor);
             Logger.Instance.Log("Starting the Webserver.");
             Console.WriteLine("Starting the Webserver.");
 

@@ -35,9 +35,10 @@ namespace ArgusIPMI
                 }
             }
         }
-
-        public static async Task StartWebServer() // Removed unused parameter 'ipmiWrapper'
+        private static Executor? _executor;
+        public static async Task StartWebServer(Executor executor)
         {
+            _executor = executor;
             // Set up the timer for 1000 milliseconds (1 second)
             sensorDataTimer = new System.Timers.Timer(1000)
             {
@@ -78,6 +79,32 @@ namespace ArgusIPMI
                             endpoints.MapGet("/", async context =>
                             {
                                 await context.Response.WriteAsync("Hello, World!");
+                            });
+
+                            endpoints.MapPost("/setAutomatic", async context =>
+                            {
+                                await _executor.SetIPMIMode(true);
+                                await context.Response.WriteAsync("Automatic mode set");
+                            });
+
+                            endpoints.MapPost("/setManual", async context =>
+                            {
+                                await _executor.SetIPMIMode(false);
+                                await context.Response.WriteAsync("Manual mode set");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed", async context =>
+                            {
+                                var speed = context.Request.Query["speed"].ToString();
+                                if (string.IsNullOrEmpty(speed))
+                                {
+                                    context.Response.StatusCode = 400; // Bad Request
+                                    await context.Response.WriteAsync("Speed parameter is missing or invalid.");
+                                    return;
+                                }
+
+                                await _executor.SetFanSpeed(speed);
+                                await context.Response.WriteAsync($"Fan speed set to {speed}");
                             });
                         });
                     }).UseUrls("http://*:5000");

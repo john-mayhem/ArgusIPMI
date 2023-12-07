@@ -202,19 +202,19 @@ body {
   white-space: pre-wrap;
 }
 
-#save {
+#automatic {
   background-color: #4cd964;
 }
 
-#clear {
+#manual {
   background-color: #ff3b30;
 }
 
-#save:hover {
+#automatic:hover {
   background-color: #4cc564;
 }
 
-#clear:hover {
+#manual:hover {
   background-color: #e13b30;
 }
 
