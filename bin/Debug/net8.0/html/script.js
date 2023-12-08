@@ -152,30 +152,12 @@ document.getElementById('manual').addEventListener('click', function() {
     toggleFanControls(true);
 });
 
-// Helper function to map percentages to hex values
-function percentageToHex(percentage) {
-    const hexValues = {
-        '0': '00',
-        '10': '0A',
-        '20': '14',
-        '30': '1E',
-        '40': '28',
-        '50': '32',
-        '60': '3C',
-        '70': '46',
-        '80': '50',
-        '90': '5A',
-        '100': '64'
-    };
-    return hexValues[percentage];
-}
 
 // Event listeners for fan speed buttons
 document.querySelectorAll('.manual').forEach(button => {
     button.addEventListener('click', function() {
         const percentage = this.textContent.replace('%', '');
-        const hexValue = percentageToHex(percentage);
-        fetch(`/setFanSpeed?speed=${hexValue}`, { method: 'POST' })
+        fetch(`/setFanSpeed${percentage}`, { method: 'POST' })
             .then(response => console.log(`${percentage}% speed set`))
             .catch(error => console.error('Error:', error));
     });
@@ -184,8 +166,7 @@ document.querySelectorAll('.manual').forEach(button => {
 // Event listener for "SET" button
 document.querySelector('.setSpeed').addEventListener('click', function() {
     const sliderValue = document.getElementById('customSpeed').value;
-    const hexValue = percentageToHex(sliderValue);
-    fetch(`/setFanSpeed?speed=${hexValue}`, { method: 'POST' })
+    fetch(`/setFanSpeed?speed=${sliderValue}`, { method: 'POST' })
         .then(response => console.log(`Speed set to ${sliderValue}%`))
         .catch(error => console.error('Error:', error));
 });

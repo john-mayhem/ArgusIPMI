@@ -10,7 +10,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Xml.Linq;
-using System.Xml.Serialization; // Add this for XmlSerializer
+using System.Xml.Serialization; 
+using Microsoft.Extensions.Logging;
 
 
 
@@ -106,8 +107,73 @@ namespace ArgusIPMI
                                 await _executor.SetFanSpeed(speed);
                                 await context.Response.WriteAsync($"Fan speed set to {speed}");
                             });
+
+                            endpoints.MapPost("/setFanSpeed10", async context =>
+                            {
+                                await _executor.SetFanSpeed10();
+                                await context.Response.WriteAsync("Fan speed set to 10%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed20", async context =>
+                            {
+                                await _executor.SetFanSpeed20();
+                                await context.Response.WriteAsync("Fan speed set to 20%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed30", async context =>
+                            {
+                                await _executor.SetFanSpeed30();
+                                await context.Response.WriteAsync("Fan speed set to 30%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed40", async context =>
+                            {
+                                await _executor.SetFanSpeed40();
+                                await context.Response.WriteAsync("Fan speed set to 40%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed50", async context =>
+                            {
+                                await _executor.SetFanSpeed50();
+                                await context.Response.WriteAsync("Fan speed set to 50%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed60", async context =>
+                            {
+                                await _executor.SetFanSpeed60();
+                                await context.Response.WriteAsync("Fan speed set to 60%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed70", async context =>
+                            {
+                                await _executor.SetFanSpeed70();
+                                await context.Response.WriteAsync("Fan speed set to 70%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed80", async context =>
+                            {
+                                await _executor.SetFanSpeed80();
+                                await context.Response.WriteAsync("Fan speed set to 80%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed90", async context =>
+                            {
+                                await _executor.SetFanSpeed90();
+                                await context.Response.WriteAsync("Fan speed set to 90%");
+                            });
+
+                            endpoints.MapPost("/setFanSpeed100", async context =>
+                            {
+                                await _executor.SetFanSpeed100();
+                                await context.Response.WriteAsync("Fan speed set to 100%");
+                            });
                         });
                     }).UseUrls("http://*:5000");
+                    webBuilder.ConfigureLogging(logging =>
+                    {
+                        logging.ClearProviders(); // Clear existing logging providers
+                        logging.AddProvider(new CustomLoggerProvider()); // Add custom logger provider
+                    });
                 }).Build();
 
             await host.RunAsync();
