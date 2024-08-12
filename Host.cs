@@ -183,62 +183,47 @@ namespace ArgusIPMI
         {
             string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
             string dataFilePath = Path.Combine(dataFolderPath, "data.txt");
-
             string htmlFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "html");
             string xmlFilePath = Path.Combine(htmlFolderPath, "sensors.xml");
 
             try
             {
-                // Asynchronously read the data file
                 string fileContent = await File.ReadAllTextAsync(dataFilePath);
 
-                // Parse the fileContent using regular expressions to extract the sensor values
-                var fanSpeeds = Regex.Matches(fileContent, @"Fan\d\s+\|\s+(\d+\.\d+)\s+\|")
+                // Adjusted regex for Fan RPM
+                var fanSpeeds = Regex.Matches(fileContent, @"Fan\d RPM\s+\|\s+(\d+\.\d+)")
                                      .Cast<Match>()
                                      .Select(m => m.Groups[1].Value)
-                                     .Select(value => float.Parse(value, System.Globalization.CultureInfo.InvariantCulture))
-                                     .Select(number => ((int)Math.Round(number)).ToString())
                                      .ToArray();
 
-                var cpuTemps = Regex.Matches(fileContent, @"Temp\s+\|\s+(\d+\.\d+)\s+\|")
-                                        .Cast<Match>()
+                // Adjusted regex for Temperatures
+                var cpuTemps = Regex.Matches(fileContent, @"Temp\s+\|\s+(\d+\.\d+)")
+                                    .Cast<Match>()
                                     .Select(m => m.Groups[1].Value)
-                                    .Select(value => float.Parse(value, System.Globalization.CultureInfo.InvariantCulture))
-                                    .Select(number => ((int)Math.Round(number)).ToString())
                                     .ToArray();
 
-                var powerConsumption = Regex.Match(fileContent, @"Pwr Consumption\s+\|\s+(\d+\.\d+)\s+\|")
-                                                .Groups[1].Value;
-                powerConsumption = ((int)Math.Round(float.Parse(powerConsumption, System.Globalization.CultureInfo.InvariantCulture))).ToString();
+                // Adjusted regex for Power Consumption
+                var powerConsumptionMatch = Regex.Match(fileContent, @"Pwr Consumption\s+\|\s+(\d+\.\d+)");
+                var powerConsumption = powerConsumptionMatch.Success ? powerConsumptionMatch.Groups[1].Value : "0";
 
-                // Create an XML representation of the data
                 var xmlData = new XElement("SensorData",
-                    new XElement("Fans",
-                        fanSpeeds.Select((speed, index) => new XElement($"Fan{index + 1}", speed))
-                    ),
-                    new XElement("Temperatures",
-                        cpuTemps.Select((temp, index) => new XElement($"CPU{index + 1}", temp))
-                    ),
+                    new XElement("Fans", fanSpeeds.Select((speed, index) => new XElement($"Fan{index + 1}", speed))),
+                    new XElement("Temperatures", cpuTemps.Select((temp, index) => new XElement($"CPU{index + 1}", temp))),
                     new XElement("PowerConsumption", powerConsumption)
                 );
                 await File.WriteAllTextAsync(xmlFilePath, xmlData.ToString());
             }
             catch (Exception ex)
             {
-                // Log the error
+                // Error handling
                 Console.Error.WriteLine($"Error processing sensor data: {ex.Message}");
-
-                // Clear the contents of sensors.xml
-                var emptyData = new XElement("SensorData",
-                    new XElement("Fans"),
-                    new XElement("Temperatures"),
-                    new XElement("PowerConsumption", "0")
-                );
+                var emptyData = new XElement("SensorData", new XElement("Fans"), new XElement("Temperatures"), new XElement("PowerConsumption", "0"));
                 await File.WriteAllTextAsync(xmlFilePath, emptyData.ToString());
                 Logger.Instance.Log("Sleeping for 10 seconds");
-                Console.WriteLine("Sleeping for 10 seconds" );
+                Console.WriteLine("Sleeping for 10 seconds");
                 await Task.Delay(10000);
             }
         }
+
     }
 }
